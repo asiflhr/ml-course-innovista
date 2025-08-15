@@ -59,7 +59,7 @@ pip install uvicorn fastapi
 ## 📜 Step 4 — Save Your Dependencies
 
 ```bash
-pip freeze > requirements.txt
+d
 ```
 
 This will store exact package versions in `requirements.txt`.
