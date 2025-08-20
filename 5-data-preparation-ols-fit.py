@@ -18,11 +18,11 @@ def main():
     df_cleaned = df.dropna() # Drop rows with missing values
     print("\n Data after dropping rows with missing values: ")
     print(df_cleaned.head(8))
-    print(f"\n Total rows and columns after dropping missing values: ")
+    print(f"\n Total rows and columns after dropping missing values: {df_cleaned.shape}")
 
     # Using SimpleImputer for predictive imputation
     imputer = SimpleImputer(strategy='mean')
-    df[['Age', 'Quantity', 'Price per Unit', 'Total Amount']] = imputer
+    df[['Age', 'Quantity', 'Price per Unit', 'Total Amount']] = imputer.fit_transform(df[['Age', 'Quantity', 'Price per Unit', 'Total Amount']])
     print("\n Data after imputation: ")
     print("\n ", df.head(8))
     print(f"\n Total rows and columns after imputation: {df.shape}")
@@ -54,7 +54,7 @@ def main():
     print("\n Press any key to continue. \n")
     input()
 
-    # Prepairing data for OLS Regression
+    # Preparing data for OLS Regression
     X = df[['Price per Unit']] # Independent variable
     y = df[['Total Amount']] # Dependent variable
 
@@ -71,8 +71,8 @@ def main():
     input()
 
     # Scatter plot regression line
-    plt.scatter(df['Price per Unit'], df['Total Amount'], color='blue')
-    plt.plot(df['Price per Unit'], model.predict(X), color='red', label='')
+    plt.scatter(df['Price per Unit'], df['Total Amount'], color='blue', label='Price per Unit / Total Amount')
+    plt.plot(df['Price per Unit'], model.predict(X), color='red', label='Regression Line (Price)')
     plt.xlabel('Independent Variable (Price per Unit)')
     plt.ylabel('Total Amount')
     plt.legend()
